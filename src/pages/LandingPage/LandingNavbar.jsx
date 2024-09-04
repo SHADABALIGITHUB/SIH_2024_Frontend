@@ -26,7 +26,7 @@ const LandingNavbar = () => {
           <img src={ICONS.Logo} alt="logo" className="h-10 p-1 hidden md:block" />
        </Link>
 
-         {/* <Link to="/tech" className="mytext"> Teacher Dashboard</Link> */}
+         <Link to="/tech" className="mytext"> Teacher Dashboard</Link>
 
         
           <div className="flex items-center justify-end space-x-4">

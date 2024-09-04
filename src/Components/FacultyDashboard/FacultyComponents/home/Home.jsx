@@ -1,19 +1,30 @@
 import React from 'react';
 import './Home.css';
-import Me from '../../../../assets/Faculty/avatar-1.svg';
+import Me from '../../../../assets/Faculty/avatar-4.svg';
 import HeaderSocials from './HeaderSocials';
 import ScrollDown from './ScrollDown';
 import Shapes from './Shapes';
 
-const Home = () => {
+const Home = ({data}) => {
+
+     
+    
+     
+
     return (
         <section className="home container" id='home'>
             <div className="intro">
-                <img src={Me} alt="" className='home__img' width='120' />
-                <h1 className="h1 home__name">Greg Sithole</h1>
-                <span className="home__education">I'm a Software Engineer</span>
+                <img src={data.img[0].Profile || Me} alt="" className='home__img w-32 h-32 rounded-3xl' width='120'
+                onError={(e) => {
+                    e.target.onerror = null; // Prevents infinite loop if the fallback image also fails
+                    e.target.src = Me; // Fallback image URL if data.img is not a valid image
+                  }}
+                /> 
+                
+                <h1 className="h1 font-serif home__name">{data.name}</h1>
+                <span className="my-text font-sm font-serif font-semibold">{data.education}</span>
 
-                <HeaderSocials />
+                <HeaderSocials Social={data.socials} />
 
                 <a href="#contact" className="btn"> Contact Me</a>
 
@@ -23,6 +34,7 @@ const Home = () => {
             <Shapes />
         </section>
     )
+
 }
 
 export default Home

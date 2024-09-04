@@ -26,16 +26,16 @@ const Portfolio = () => {
 					All
 				</span>
 				<span className={activeFilter === 1 ? 'portfolio__item portfolio__item-active' : 'portfolio__item'} onClick={() => { filterItems("Frontend"); setActiveFilter(1) }}>
-					Frontend
+				Software Engineering
 				</span>
 				<span className={activeFilter === 2 ? 'portfolio__item portfolio__item-active' : 'portfolio__item'} onClick={() => { filterItems("Backend"); setActiveFilter(2) }}>
-					Backend
+					AI & ML
 				</span>
 				<span className={activeFilter === 3 ? 'portfolio__item portfolio__item-active' : 'portfolio__item'} onClick={() => { filterItems("Angular"); setActiveFilter(3) }}>
-					Angular
+				Data Science and Big Data
 				</span>
 				<span className={activeFilter === 4 ? 'portfolio__item portfolio__item-active' : 'portfolio__item'} onClick={() => { filterItems("React"); setActiveFilter(4) }}>
-					React
+				Computer Networks and Distributed Systems
 				</span>
 			</div>
 
@@ -59,10 +59,10 @@ const Portfolio = () => {
 
 							<span className="portfolio__category">{category.join(', ')}</span>
 							<h3 className="h3 portfolio__title">{title}</h3>
-							<a href={url} target="_blank" rel="noreferrer" className="portfolio__button">
+							<a href={url} target="_blank" rel="noreferrer" className="portfolio__button flex justify-center items-center">
 								<RiLink className="portfolio__button-icon" />
 							</a>
-							<a href={repositoryUrl} target="_blank" rel="noreferrer" className="portfolio__github-button">
+							<a href={repositoryUrl} target="_blank" rel="noreferrer" className="portfolio__github-button flex justify-center items-center">
 								<RiGithubLine className="portfolio__button-icon" />
 							</a>
 						</motion.div>
