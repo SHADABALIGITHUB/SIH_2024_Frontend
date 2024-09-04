@@ -1,6 +1,8 @@
 const TeacherDashBoard = () => {
   return (
-    <div>TeacherDashBoard</div>
+    <div>
+      <h1>Teacher Dashboard</h1>
+    </div>
   )
 }
 export default TeacherDashBoard
