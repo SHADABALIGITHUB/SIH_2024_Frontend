@@ -1,11 +1,13 @@
 import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Otp = ({length=6}) => {
 
     const [otp,setOtp]= useState(new Array(length).fill(""))
     const inputRef = useRef([])
     const [finalotp,setFinalotp] = useState()
+    const navigate = useNavigate()
 
     useEffect(()=>{
         if(inputRef.current[0]){
@@ -25,7 +27,7 @@ const Otp = ({length=6}) => {
             otp:finalotp
         })
 
-        await axios.post('/api/admin/auth/verify',config,data).then((res)=>{
+        await axios.post('/api/admin/auth/verify-otp',config,data).then((res)=>{
             if(res === "User registered successfully."){
                 alert(res)
                 navigate('/dashboard')

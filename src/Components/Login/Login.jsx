@@ -19,7 +19,6 @@ const Login = () => {
   // const [role,setRole] = useState('')
   const [wrong, setWrong] = useState("border-none");
   const [instituteId, setInstitueId] = useState("");
-  const [department, setDepartment] = useState("");
 
   const navigate = useNavigate()
 
@@ -37,7 +36,6 @@ const Login = () => {
         email:email,
         password:password,
         instituteId:instituteId,
-        department:department
       }
 
       // Register api call
@@ -224,16 +222,7 @@ const Login = () => {
               />
             </div>
 
-            <div className="mb-2 block">
-              
-              <TextInput
-                id="Department"
-                value={department}
-                onChange={(e) => setDepartment(e.target.value)}
-                placeholder="Department"
-                required
-              />
-            </div>
+            
 
             <div className="mb-2 block">
               
