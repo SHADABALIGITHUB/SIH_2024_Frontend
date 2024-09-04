@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 
 const Otp = ({length=6}) => {
@@ -12,8 +13,28 @@ const Otp = ({length=6}) => {
         }
     },[])
 
+    const config = {
+        headers:{
+            "Content-Type":"application/json"
+        }
+    }
+
     const handleSubmit =async()=>{
         //otp api check
+        const data = JSON.stringify({
+            otp:finalotp
+        })
+
+        await axios.post('/api/admin/auth/verify',config,data).then((res)=>{
+            if(res === "User registered successfully."){
+                alert(res)
+                navigate('/dashboard')
+            }else{
+                alert(res)
+            }
+        }).catch((err)=>{
+            console.log(err)
+        })
     }        
 
     const handleChange = (index,e)=>{
@@ -67,7 +88,7 @@ const Otp = ({length=6}) => {
                     }
 
                 </div>
-                <button className="bg-primary text-gray-200 font-bold px-2 py-1 rounded">Verify</button>
+                <button onClick={handleSubmit} className="bg-primary text-gray-200 font-bold px-2 py-1 rounded">Verify</button>
                 <p className="mt-3">Didn't receive code? <span className='text-blue-500 font-semibold underline cursor-pointer'>Request code</span></p>
             </div>
         </div>

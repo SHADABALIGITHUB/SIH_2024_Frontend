@@ -9,6 +9,7 @@ import axiosInstance from "../../lib/axiosInstance";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 
 const Register = () => {
@@ -24,38 +25,31 @@ const Register = () => {
   const [instituteId, setInstitueId] = useState("");
   const [department, setDepartment] = useState("");
 
+  const config ={
+    headers:{
+      "Content-Type":"application/json"
+    }
+  }
+
   const handleRegister = async()=> {
       
-    if (confirmPassword === password) {
-     
-      try {
-        const res = await axiosInstance.post("/api/faculty/register", {
-    
-          "name":name,
-          "email": email,
-          "password": password,
-          "instituteId":instituteId,
-          "department":department,
-      
-          
-        });
-        console.log(res);
-        console.log("names")
-        console.log({name,email,password,instituteId,department});
-        if(res.data){
-          toast.success(res.data.message);
-          // setIsAuth(true);  TODO: Create a usestate in context so that we can set auth(variable) to true and then navigate to dashboard where we will check if the auth is true or false.
-          // If it is true then remain on dashboard else navigate to login (check main.jsx to get the idea)
-          navigate(`/dashboard`);
-        }else{
-          toast.error(res.data.message);
-        }
-        }
-        catch(err){
-          toast.error(err.response.data.message);
-        }
-           
+    if (confirmPassword === password) {           
       // Register api call
+      const data = {
+        name:name,
+        email:email,
+        password:password,
+        instituteId:instituteId,
+        department:department
+      }
+      await axios.post('/api/faculty/auth/register',config,data).then((res)=>{
+          document.cookie = res
+      }).then(()=>{
+        navigate('/dashboard')
+      }).catch((err)=>{
+        console.log(err)
+      })
+
     } else {
       setWrong("border animate-shake animate-twice animate-duration-1000");
       setTimeout(() => {
@@ -64,9 +58,17 @@ const Register = () => {
     }
   };
 
-  const handlelogin = (e) => {
-    e.preventDefault();
+  const handlelogin = async() => {
     // login api call
+
+    await axios.post('/api/faculty/auth/login',config,data).then((res)=>{
+      document.cookie = res
+    }).then(()=>{
+      navigate('/dashboard')
+    }).catch((err)=>{
+      console.log(err)
+    })
+    
   };
 
   return (
@@ -84,10 +86,10 @@ const Register = () => {
             Faculty Login{" "}
           </h1>
 
-          <form  className="flex flex-col gap-6">
+          <div  className="flex flex-col gap-6">
             <div className="max-w-md">
               <div className="mb-2 block">
-                <Label htmlFor="email" value="Your email" />
+                
               </div>
               <TextInput
                 id="email"
@@ -102,7 +104,7 @@ const Register = () => {
 
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="password" value="Your password" />
+                
               </div>
               <TextInput
                 id="password"
@@ -124,12 +126,12 @@ const Register = () => {
               <span className="text-mytext">SignIn with Google</span>
             </div>
             <button
-              type="submit"
+              onClick={handlelogin}
               className=" p-2 rounded bg-btnbg text-mytext px-10 font-bold"
             >
               SIGN IN
             </button>
-          </form>
+          </div>
           <p className="flex md:hidden">
             Don't have account
             <span
@@ -174,10 +176,10 @@ const Register = () => {
             isnotLogged ? "flex" : "hidden"
           }`}
         >
-          <h1 className=""></h1>
+          
           <h1 className="text-3xl text-mytext font-semibold font-Google1">Sign Up</h1>
 
-          <form  className="flex flex-col gap-2">
+          <div  className="flex  w-3/4 flex-col gap-2">
             {/* <Inputs id={"User"} value={username} Changes={(e)=>setUsername(e.target.value)} pholder='UserName'/>
                 <Inputs id={"email"} value={email} Changes={(e)=>setEmail(e.target.value)} pholder='Email'/>
                 <Inputs id={"InstituteId"} value={instituteId} Changes={(e)=>setInstitueId(e.target.value)} pholder='Institute Id'/>
@@ -186,18 +188,18 @@ const Register = () => {
                 <Inputs id={"confirmPassword"} wrong={wrong} value={confirmPassword} Changes={(e)=>setConfirmPassword(e.target.value)} pholder='Confirm Password'/> */}
 
             <div className="mb-2 block ">
-              <Label htmlFor="faculty" value="Faculty Name" />
+              
               <TextInput
                 id="faculty"
                 // value={name}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
                 placeholder="Name "
                 
               />
             </div>
 
             <div className="mb-2 block">
-              <Label htmlFor="email" value="Email" />
+              
               <TextInput
                 id="email-faculty"
                 // value={email}
@@ -208,7 +210,7 @@ const Register = () => {
             </div>
 
             <div className="mb-2 block">
-              <Label htmlFor="Faculty" value="Faculty Id" />
+              
               <TextInput
                 id="FacultyId"
                 
@@ -218,7 +220,7 @@ const Register = () => {
               />
             </div>
             <div className="mb-2 block">
-              <Label htmlFor="InstituteId" value="Institute Id" />
+              
               <TextInput
                 id="InstituteId"
                 // value={instituteId}
@@ -229,7 +231,7 @@ const Register = () => {
             </div>
 
             <div className="mb-2 block">
-              <Label htmlFor="Department" value="Department" />
+              
               <TextInput
                 id="Department"
                 // value={department}
@@ -240,7 +242,7 @@ const Register = () => {
             </div>
 
             <div className="mb-2 block">
-              <Label htmlFor="password-f" value="Password" />
+              
               <TextInput
                 id="password-f"
                 type="password"
@@ -252,16 +254,17 @@ const Register = () => {
             </div>
 
             <div className="mb-2 block">
-              <Label htmlFor="confirmPassword-f" value="Confirm Password" />
+              
               <TextInput
                 id="confirmPassword-f"
                 type="password"
                 // value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm Password"
+                className={`${wrong} rounded-lg border-red-700`}
                 
               />
-              {wrong && <p className="text-red-500 text-sm">Passwords do not match</p>}
+              {!wrong && <p className="text-red-500 text-sm">Passwords do not match</p>}
             </div>
 
             <div className="flex gap-2 justify-center items-center border-gray-500 border cursor-pointer p-1 rounded">
@@ -287,7 +290,7 @@ const Register = () => {
                 SignIn{" "}
               </span>
             </p>
-          </form>
+          </div>
         </div>
       </div>
     </>

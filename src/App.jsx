@@ -10,7 +10,7 @@ import Register from './Components/Register/Register'
 import Dashboard from './Components/Dashboard/AdminDashboard'
 
 
-import Overlayer from './pages/Overlay/Overlayer'
+// import Overlayer from './pages/Overlay/Overlayer'
 import AdminORFaculty  from './Components/Confirms&Alerts/AdminORFaculty'
 import { Toaster } from 'react-hot-toast'
 function App() {
@@ -35,7 +35,9 @@ function App() {
          
           <Route path="/auth" element={<Overlayer/>} >
               <Route path="admin" element={<Login/>} />
-              <Route path="faculty" element={<Register/>} />
+              <Route path="faculty" element={<Register/>} >
+                
+              </Route>
           </Route>
           <Route path="/confirm" element={<AdminORFaculty/>} />
           <Route path="/dashboard" element={<Dashboard/> } /> 
@@ -43,7 +45,7 @@ function App() {
           
           
           
-          {/* <Route path="/Otp" element={<Otp/>} /> */}
+          <Route path="/Otp" element={<Otp/>} />
 
         </Routes>
       </BrowserRouter>

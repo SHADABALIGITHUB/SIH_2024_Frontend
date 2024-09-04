@@ -7,6 +7,7 @@ import { HiMail } from "react-icons/hi";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 const Login = () => {
   
@@ -20,9 +21,34 @@ const Login = () => {
   const [instituteId, setInstitueId] = useState("");
   const [department, setDepartment] = useState("");
 
-  const handleRegister = () => {
+  const navigate = useNavigate()
+
+  const config ={
+    headers:{
+      "Content-Type":"application/json"
+    }
+  }
+
+  const handleRegister = async() => {
     if (confirmPassword === password) {
+        
+      const data = {
+        name:username,
+        email:email,
+        password:password,
+        instituteId:instituteId,
+        department:department
+      }
+
       // Register api call
+      await axios.post('/api/admin/auth/register',config,data).then((res)=>{
+        document.cookie = res
+      }).then(()=>{
+        navigate('/otp')
+      }).catch((err)=>{
+        console.log("Error message:-->>"+err)
+      })
+
     } else {
       setWrong("border animate-shake animate-twice animate-duration-1000");
       setTimeout(() => {
@@ -31,9 +57,23 @@ const Login = () => {
     }
   };
 
-  const handlelogin = (e) => {
-    e.preventDefault();
+  const handlelogin = async() => {
     // login api call
+
+    const data = {
+      email:email,
+      password:password
+    }
+
+    await axios.post('/api/admin/auth/login',config,data).then((res)=>{
+      console.log(res)
+      document.cookie = res
+    }).then(()=>{
+      navigate('/dashboard')
+    }).catch((err)=>{
+      console.log(err)
+    })
+    
   };
 
   return (
@@ -51,7 +91,7 @@ const Login = () => {
             Admin Login{" "}
           </h1>
 
-          <form action={handlelogin} className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6">
             <div className="max-w-md">
               <div className="mb-2 block">
                 <Label htmlFor="email" value="Your email" />
@@ -91,12 +131,12 @@ const Login = () => {
               <span className="text-mytext">SignIn with Google</span>
             </div>
             <button
-              type="submit"
+              onClick={handlelogin}
               className="bg-bg_btn p-2 rounded bg-btnbg text-btntext px-10 font-bold"
             >
               SIGN IN
             </button>
-          </form>
+          </div>
           <p className="flex md:hidden">
             Don't have account
             <span
@@ -144,7 +184,7 @@ const Login = () => {
           <h1 className=""></h1>
           <h1 className="text-3xl text-mytext font-semibold font-Google1">Sign Up</h1>
 
-          <form action="" className="flex flex-col gap-2">
+          <div action="" className="flex w-3/4 flex-col gap-2">
             {/* <Inputs id={"User"} value={username} Changes={(e)=>setUsername(e.target.value)} pholder='UserName'/>
                 <Inputs id={"email"} value={email} Changes={(e)=>setEmail(e.target.value)} pholder='Email'/>
                 <Inputs id={"InstituteId"} value={instituteId} Changes={(e)=>setInstitueId(e.target.value)} pholder='Institute Id'/>
@@ -153,7 +193,7 @@ const Login = () => {
                 <Inputs id={"confirmPassword"} wrong={wrong} value={confirmPassword} Changes={(e)=>setConfirmPassword(e.target.value)} pholder='Confirm Password'/> */}
 
             <div className="mb-2 block ">
-              <Label htmlFor="User" value="Admin Name" />
+              
               <TextInput
                 id="Admin"
                 onChange={(e) => setUsername(e.target.value)}
@@ -163,7 +203,7 @@ const Login = () => {
             </div>
 
             <div className="mb-2 block">
-              <Label htmlFor="email" value="Email" />
+              
               <TextInput
                 id="email"
                 value={email}
@@ -174,7 +214,7 @@ const Login = () => {
             </div>
 
             <div className="mb-2 block">
-              <Label htmlFor="InstituteId" value="Institute Id" />
+              
               <TextInput
                 id="InstituteId"
                 value={instituteId}
@@ -185,7 +225,7 @@ const Login = () => {
             </div>
 
             <div className="mb-2 block">
-              <Label htmlFor="Department" value="Department" />
+              
               <TextInput
                 id="Department"
                 value={department}
@@ -196,7 +236,7 @@ const Login = () => {
             </div>
 
             <div className="mb-2 block">
-              <Label htmlFor="password" value="Password" />
+              
               <TextInput
                 id="password"
                 type="password"
@@ -208,16 +248,17 @@ const Login = () => {
             </div>
 
             <div className="mb-2 block">
-              <Label htmlFor="confirmPassword" value="Confirm Password" />
+              
               <TextInput
                 id="confirmPassword"
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm Password"
+                className={`${wrong} rounded-lg border-red-700`}
                 required
               />
-              {wrong && <p className="text-red-500 text-sm">Passwords do not match</p>}
+              {!wrong && <p className="text-red-500 text-sm">Passwords do not match</p>}
             </div>
 
             <div className="flex gap-2 justify-center items-center border-gray-500 border cursor-pointer p-1 rounded">
@@ -242,7 +283,7 @@ const Login = () => {
                 SignIn{" "}
               </span>
             </p>
-          </form>
+          </div>
         </div>
       </div>
     </>
