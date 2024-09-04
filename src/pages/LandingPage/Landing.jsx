@@ -13,7 +13,7 @@ export const LandingPage = () => {
     <>
     
     
-    <main className={`relative w-full h-full mx-auto max-w-7xl`}>
+    <main className={`relative w-full h-full mx-auto max-w-7xl bg-background`}>
        <LandingNavbar />
       <div className="w-full pt-16 mx-auto">
         <Hero />

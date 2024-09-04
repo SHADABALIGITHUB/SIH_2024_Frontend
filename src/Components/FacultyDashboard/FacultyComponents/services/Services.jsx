@@ -31,7 +31,7 @@ const data = [
 const Services = () => {
     return (
         <section className="services container section" id="services">
-            <h2 className="section__title">Services</h2>
+            <h2 className="h2 section__title">Services</h2>
 
             <div className="services__container grid">
                 {data.map(({ id, image, title, description }) => {
@@ -39,7 +39,7 @@ const Services = () => {
                         <div className="services__card" key={id}>
                             <img src={image} alt='' className='services__img' width="80" />
 
-                            <h3 className="services__title">{title}</h3>
+                            <h3 className="h3 services__title">{title}</h3>
                             <p className="services__description">{description}</p>
                         </div>
                     )

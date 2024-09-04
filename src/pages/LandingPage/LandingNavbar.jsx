@@ -26,6 +26,8 @@ const LandingNavbar = () => {
           <img src={ICONS.Logo} alt="logo" className="h-10 p-1 hidden md:block" />
        </Link>
 
+         {/* <Link to="/tech" className="mytext"> Teacher Dashboard</Link> */}
+
         
           <div className="flex items-center justify-end space-x-4">
             <Link to="/confirm" onClick={()=>setLogged(false)}>

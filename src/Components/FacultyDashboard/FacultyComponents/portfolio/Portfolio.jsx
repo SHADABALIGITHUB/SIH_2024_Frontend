@@ -19,7 +19,7 @@ const Portfolio = () => {
 
 	return (
 		<section className="portfolio container section" id="portfolio">
-			<h2 className="section__title">Recent Projects</h2>
+			<h2 className="h2 section__title">Recent Projects</h2>
 
 			<div className="portfolio__filters">
 				<span className={activeFilter === 0 ? 'portfolio__item portfolio__item-active' : 'portfolio__item'} onClick={() => { setItems(Menu); setActiveFilter(0) }}>
@@ -58,7 +58,7 @@ const Portfolio = () => {
 							</div>
 
 							<span className="portfolio__category">{category.join(', ')}</span>
-							<h3 className="portfolio__title">{title}</h3>
+							<h3 className="h3 portfolio__title">{title}</h3>
 							<a href={url} target="_blank" rel="noreferrer" className="portfolio__button">
 								<RiLink className="portfolio__button-icon" />
 							</a>

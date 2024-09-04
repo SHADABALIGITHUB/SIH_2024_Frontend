@@ -9,22 +9,21 @@ import Testimonials from './FacultyComponents/testimonials/Testimonials';
 import Blog from './FacultyComponents/blog/Blog';
 import Contact from './FacultyComponents/contact/Contact';
 import useLocalStorage from 'use-local-storage'
-import './faculty.css';
+import {MyTheme} from '../../Context/ThemeContext';
+import { useContext } from 'react';
+
 
 
 const Index = () => {
-    const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const [theme, setTheme] = useLocalStorage('theme', defaultDark ? 'dark' : 'light');
-
-    const switchTheme = () => {
-        const newTheme = theme === 'light' ? 'dark' : 'light';
-        setTheme(newTheme);
-    }
     
+    
+    const { Theme,setTheme} = useContext(MyTheme);
+
+      
 
     return (
-        <div className="app" data-theme={theme}>
-            <Sidebar theme={theme} switchTheme={switchTheme} />
+        <div className="app" data-theme={Theme}>
+            <Sidebar />
             <main className='ml-[110px] md:ml-0'>
                 <Home />
                 <About />
@@ -33,7 +32,7 @@ const Index = () => {
                 <Portfolio />
                 <Testimonials />
                 <Blog />
-                <Contact theme={theme} />
+                <Contact theme={Theme} />
             </main>
         </div>
     );

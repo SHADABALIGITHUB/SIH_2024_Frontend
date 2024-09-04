@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import "./Sidebar.css";
 import Logo from "../../../../assets/Faculty/logo.svg";
 import LightLogo from "../../../../assets/Faculty/light-logo.svg";
-
+import { useContext } from 'react';
+import { MyTheme } from "../../../../Context/ThemeContext";
 import {
     RiHome2Line,
     RiUser3Line,
@@ -17,14 +18,17 @@ import {
 } from "react-icons/ri";
 
 
-const Sidebar = (props) => {
+const Sidebar = () => {
+     
+    
     const [toggle, showMenu] = useState(false);
+    const { Theme,setTheme} = useContext(MyTheme);
 
     return (
         <>
             <aside className={toggle ? 'aside show-menu' : 'aside'}>
                 <a href="#home" className="nav__logo">
-                    <img src={props.theme === 'light' ? LightLogo : Logo} alt="logo" />
+                    <img src={Theme === 'light' ? LightLogo : Logo} alt="logo" />
                 </a>
 
                 <nav className="nav">
@@ -76,8 +80,8 @@ const Sidebar = (props) => {
                 </nav>
 
                 <div className="nav__footer">
-                    <button onClick={() => { props.switchTheme(); showMenu(!toggle) }} className="nav__link footer__button">
-                        {props.theme === 'light' ? <RiMoonLine /> : <RiSunLine />}
+                    <button onClick={() => { setTheme(Theme === "light"?"dark":"light"); showMenu(!toggle)}} className="nav__link footer__button">
+                        {Theme === "light" ? <RiMoonLine /> : <RiSunLine />}
                     </button>
                 </div>
             </aside>
