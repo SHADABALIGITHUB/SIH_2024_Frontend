@@ -54,7 +54,7 @@ function App() {
         </Routes>
       </BrowserRouter>
 
-      </div>git 
+      </div>
   
       </MyTheme.Provider>
       
