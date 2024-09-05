@@ -33,24 +33,26 @@ const Login = () => {
   const handleRegister = async() => {
     if (confirmPassword === password) {
         
-      const data = {
+      const data = JSON.stringify({
         name:username,
         email:email,
         password:password,
         instituteId:instituteId,
-      }
-      const facultydata = {
+      })
+      const facultydata = JSON.stringify({
         name:username,
         email:email,
         password:password,
-        instituteId:instituteId,
+        institutionId:instituteId,
         department:department
-      }
+      })
+
+      alert(username+email+password+instituteId)
 
       // Register api call
       if(role === "Admin"){
-        await axios.post('/api/admin/auth/register',config,data).then((res)=>{
-          document.cookie = res
+        await axios.post('http://localhost:3000/api/admin/auth/register',config,data).then((res)=>{
+          console.log(res)
         }).then(()=>{
           navigate('/otp')
         }).catch((err)=>{
@@ -58,8 +60,8 @@ const Login = () => {
         })
 
       }else if(role === "Faculty"){
-        await axios.post('/api/faculty/auth/register',config,facultydata).then((res)=>{
-          document.cookie = res
+        await axios.post('http://localhost:3000/api/faculty/auth/register',facultydata).then((res)=>{
+          console.log(res)
         }).then(()=>{
           navigate('/otp')
         }).catch((err)=>{
@@ -248,6 +250,7 @@ const Login = () => {
               <TextInput
                 id="InstituteId"
                 value={instituteId}
+                type="text"
                 onChange={(e) => setInstitueId(e.target.value)}
                 placeholder="Institute Id"
                 required
