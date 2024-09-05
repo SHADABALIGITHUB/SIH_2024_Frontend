@@ -62,8 +62,7 @@ const Register = () => {
 
     try {
 
-      // first verify whether the user is verified or not 
-      // and in case it is not then prompt him to verify first
+     
       axiosInstance.post("/api/faculty/auth/verify",{email})
       .then(async (response) => {
         const res = await axiosInstance.post(`/api/faculty/auth/login`,{email,password});

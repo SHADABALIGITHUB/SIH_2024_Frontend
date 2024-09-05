@@ -21,11 +21,11 @@ const Index = () => {
     const { Theme,setTheme} = useContext(MyTheme);
 
      const [data, setData] = useState({
-        name: 'Dr. Sunil',
-        education: "Ph.D. (Computer Engineering)",
+        name: 'Dr.Megha Jain',
+        education: "Assistant Professor",
         img:[
             {
-            Profile:"https://law-teachers.in/teacher-img/passportsize%20photo.jpg",
+            Profile:"https://law-teach.in/teacher-img/passportsize%20photo.jpg",
             Cover:"https://law-teachers.in/teacher-img/cover%20photo.jpg",
             big:"https://law-teachers.in/teacher-img/cover%20photo.jpg",
             creation_date:'',
@@ -63,14 +63,15 @@ const Index = () => {
         ,
         about: {
             
-            desc: `Hello! I'm Greg, and I'm based in Johannesburg, South Africa. I studied at Varisty College Sandton, where I completed my diploma in Software Development.<br /><br />Fastforward to today, and I can honestly say it's been a beautiful journery and I hope to grow even further as Software Engineer. My current focus these days is on expanidng my portfolio by building more projects that I can add on here, as well as being a great team player at my current role.<br /><br /> Here are a few technologies I’ve been working with recently:`,
+            desc: `I possess over 17 years of extensive academic experience with a robust track record of scholarly contributions. My research endeavors have resulted in the publication of more than 15 articles in esteemed international journals, including reputable publishers such as Elsevier, Springer, and IGI Global USA. A significant portion of my work is indexed in SCI/Scopus, highlighting its scholarly impact and quality. One of my articles has been recognized and listed as a book chapter by Elsevier. My primary area of expertise and interest lies in blockchain technology. Title of PhD thesis “Designing a Blockchain based Platform for Health Care sector to Prevent Fraudulent activities in Medical Records”. I have also been involved in various research projects and have secured funding from the Department of Science and Technology (DST) and the University Grants Commission (UGC) for my research initiatives. I have also been a part of the editorial board of several reputed journals and have reviewed numerous research papers.`,
             skills: [
-                'JavaScript (ES6+)',
-                'TypeScript',
-                'React',
-                'Node.js',
-                'Postgres SQL',
-                'NestJS'
+                'Blockchain',
+                'cloud computing',
+                'Artificial Intelligence',
+                'Machine Learning',
+                'Data Science',
+                'Cyber Security',
+                
             ],
             Resume: "https://portal.abuad.edu.ng/lecturer/documents/1554208765DATA_AND_INFORMATION.pdf",
             Experience: 12,
@@ -82,46 +83,47 @@ const Index = () => {
         },
         publications: [
             {
-                title: 'Publication 1',
-                link: 'https://www.google.com',
-                img: 'https://www.google.com',
-                desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec nisi nec nulla tincidunt fringilla',
-                creation_date: "2022-02-02",
-                updation_data: "2022-02-02",
+              title: 'Exploring Quantum Computing in Modern Cryptography',
+              link: 'https://www.journalofcryptography.com/quantum-computing',
+              img: 'https://www.journalofcryptography.com/images/quantum.jpg',
+              desc: 'A comprehensive study on the impact of quantum computing in modern cryptographic methods, focusing on security challenges.',
+              creation_date: "2021-08-12",
+              updation_data: "2021-10-05",
             },
             {
-                title: 'Publication 2',
-                link: 'https://www.google.com',
-                img: 'https://www.google.com',
-                desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec nisi nec nulla tincidunt fringilla',
-                creation_date: "2022-02-02",
-                updation_data: "2022-02-02",
+              title: 'AI-Powered Healthcare: Transforming Medical Diagnosis',
+              link: 'https://www.healthcarejournal.com/ai-diagnosis',
+              img: 'https://www.healthcarejournal.com/images/ai-healthcare.jpg',
+              desc: 'This paper discusses the integration of AI into healthcare systems for enhanced diagnosis accuracy and patient care.',
+              creation_date: "2020-12-15",
+              updation_data: "2021-01-20",
             }, 
             {
-                title: 'Publication 3',
-                link: 'https://www.google.com',
-                img: 'https://www.google.com',
-                desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec nisi nec nulla tincidunt fringilla',
-                creation_date: "2022-02-02",
-                updation_data: "2022-02-02",
+              title: 'Sustainable Energy Solutions for the 21st Century',
+              link: 'https://www.renewableenergyworld.com/sustainable-energy',
+              img: 'https://www.renewableenergyworld.com/images/sustainable-energy.jpg',
+              desc: 'An analysis of renewable energy technologies, focusing on solar, wind, and bioenergy as sustainable solutions.',
+              creation_date: "2022-05-18",
+              updation_data: "2022-06-01",
             },
             {
-                title: 'Publication 4',
-                link: 'https://www.google.com',
-                img: 'https://www.google.com',
-                desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec nisi nec nulla tincidunt fringilla',
-                creation_date: "2022-02-02",
-                updation_data: "2022-02-02",
+              title: 'Blockchain Technology in Financial Services',
+              link: 'https://www.financialtechjournal.com/blockchain-finance',
+              img: 'https://www.financialtechjournal.com/images/blockchain.jpg',
+              desc: 'A deep dive into how blockchain is revolutionizing the financial sector by enhancing transparency and security.',
+              creation_date: "2021-03-22",
+              updation_data: "2021-04-10",
             },
             {
-                title: 'Publication 5',
-                link: 'https://www.google.com',
-                img: 'https://www.google.com',
-                desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec nisi nec nulla tincidunt fringilla',
-                creation_date: "2022-02-02",
-                updation_data: "2022-02-02",
+              title: 'The Role of Machine Learning in Climate Modeling',
+              link: 'https://www.environmentalresearch.com/climate-ml',
+              img: 'https://www.environmentalresearch.com/images/climate-ml.jpg',
+              desc: 'This publication explores the application of machine learning techniques in climate science for better forecasting and risk assessment.',
+              creation_date: "2023-01-30",
+              updation_data: "2023-02-12",
             },
-        ],
+          ],
+          
         WorkExperience:[
             {
                 id: 1,
@@ -190,8 +192,8 @@ const Index = () => {
             {
                 id: 1,
                 image: 'https://www.google.com',
-                title: "React Native Jobs App",
-                category: ["Frontend", "React"],
+                title: "Block chain backend App",
+                category: ["Python", "Blockchain"],
                 Url: "https://github.com/GregSithole/react-native-jobs",
                 creation_date: "2022-02-02",
                 updation_data: "2022-02-02",
@@ -201,7 +203,7 @@ const Index = () => {
                 id: 2,
                 image: 'https://www/facebook.com',
                 title: "Cryptoverse",
-                category: ["Frontend", "React"],
+                category: ["Decentralized Finance", "Big Data"],
                 url: "https://cryptoverse.gregsithole.com",
                 repositoryUrl: "https://github.com/GregSithole/crypto-app",
                 creation_date: "2022-02-02",
@@ -210,8 +212,8 @@ const Index = () => {
             {
                 id: 3,
                 image: 'https://www.google.com',
-                title: "Travel Advisor",
-                category: ["Frontend"],
+                title: "Travel Advisor and Link",
+                category: ["Blockchain-Based KYC"],
                 url: "https://travel.gregsithole.com",
                 repositoryUrl: "https://github.com/GregSithole/travel-advisor",
                 creation_date: "2022-02-02",
@@ -221,8 +223,8 @@ const Index = () => {
             {
                 id: 4,
                 image: 'Projects',
-                title: "Wallhaven CLI",
-                category: ["Backend"],
+                title: "Payment Gate way ",
+                category: ["Decentralized E-commerce"],
                 url: "https://www.npmjs.com/package/wallhaven-cli",
                 repositoryUrl: "https://github.com/GregSithole/wallhaven-cli",
                 creation_date: "2022-02-02",
@@ -301,7 +303,7 @@ const Index = () => {
                 <Services data={data.publications}/>
                 <Experience  WorkExperience={data.WorkExperience}/>
                 <Projects Projects={data.Projects} />
-                <Events />
+                {/* <Events /> */}
                 <StudentReviews data={data.studentReviews}/>
                 <Blog />
                 <Contact theme={Theme} />

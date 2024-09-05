@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import Authcontext from '../../Context/Authcontext'
 
+import axiosInstance from '../../lib/axiosInstance'
 const Otp = ({ length = 6 }) => {
 
     const [otp, setOtp] = useState(new Array(length).fill(""))
@@ -23,29 +24,25 @@ const Otp = ({ length = 6 }) => {
             email:localStorage.getItem("email"),
             otp: finalotp
         })
+
+        console.log("mohit hu mai")
         
 
         if(role === "Admin"){
-            await axios.post(`/api/admin/auth/verify-otp`, data).then((res) => {
+            
+            await axiosInstance.post(`/api/admin/auth/verify-otp`, data).then((res) => {
                 toast.success("User verified successfully");
-                if(user == "faculty"){
-                    navigate('/faculty');
-                }
-                else {
-                    navigate("/dashboard");
-                }
+                navigate("/dashboard");
+                
             }).catch((err) => {
                 console.log(err)
             })
         }else if(role === "Faculty"){
-            await axios.post(`/api/faculty/auth/verify-otp`, data).then((res) => {
+            await axiosInstance.post(`/api/faculty/auth/verify-otp`, data).then((res) => {
                 toast.success("User verified successfully");
-                if(user === "faculty"){
-                    navigate('/faculty');
-                }
-                else {
-                    navigate("/dashboard");
-                }
+                
+                    navigate('/tech');
+               
             }).catch((err) => {
                 console.log(err)
             })
