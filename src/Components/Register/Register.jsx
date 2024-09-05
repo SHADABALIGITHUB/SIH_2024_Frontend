@@ -42,10 +42,10 @@ const Register = () => {
         instituteId:instituteId,
         department:department
       }
-      await axios.post('/api/faculty/auth/register',config,data).then((res)=>{
+      await axiosInstance.post('/api/faculty/auth/register',data).then((res)=>{
           document.cookie = res
       }).then(()=>{
-        navigate('/dashboard')
+        navigate('/Otp/faculty')
       }).catch((err)=>{
         console.log(err)
       })
@@ -61,13 +61,35 @@ const Register = () => {
   const handlelogin = async() => {
     // login api call
 
-    await axios.post('/api/faculty/auth/login',config,data).then((res)=>{
-      document.cookie = res
-    }).then(()=>{
-      navigate('/dashboard')
-    }).catch((err)=>{
-      console.log(err)
-    })
+    try {
+
+      // first verify whether the user is verified or not 
+      // and in case it is not then prompt him to verify first
+      axiosInstance.post("/api/faculty/auth/verify",{email})
+      .then(async (response) => {
+        const res = await axiosInstance.post(`/api/faculty/auth/login`,{email,password});
+        toast.success("Logged in successfully");
+        navigate('/tech');
+      })
+      .catch( async (err) => {
+        console.log(err);
+        toast.error("Not verified");
+        await axiosInstance.post("/api/faculty/auth/resend-otp",{email});
+        navigate("/Otp/faculty");
+      });
+
+
+    } catch (error) {
+      console.log(error);
+    }
+
+    // await axios.post('/api/faculty/auth/login',config,data).then((res)=>{
+    //   document.cookie = res
+    // }).then(()=>{
+    //   navigate('/dashboard')
+    // }).catch((err)=>{
+    //   console.log(err)
+    // })
     
   };
 
