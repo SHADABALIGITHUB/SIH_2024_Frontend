@@ -12,7 +12,7 @@ import axiosInstance from "../../lib/axiosInstance";
 
 const Login = () => {
   
-  const { isnotLogged, setLogged } = useContext(Authcontext);
+  const { isnotLogged, setLogged,role } = useContext(Authcontext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -20,21 +20,32 @@ const Login = () => {
   // const [role,setRole] = useState('')
   const [wrong, setWrong] = useState("border-none");
   const [instituteId, setInstitueId] = useState("");
+  const [department, setDepartment] = useState("");
+
 
   const navigate = useNavigate()
 
   const handleRegister = async() => {
     if (confirmPassword === password) {
         
-      const data = {
+      const data = JSON.stringify({
         name:username,
         email:email,
         password:password,
         instituteId:instituteId,
-      }
+      })
+      const facultydata = JSON.stringify({
+        name:username,
+        email:email,
+        password:password,
+        institutionId:instituteId,
+        department:department
+      })
+
+      alert(username+email+password+instituteId)
 
       // Register api call
-      await axiosInstance.post('/api/admin/auth/register',data).then((res)=>{
+      await axios.post('/api/admin/auth/register',config,data).then((res)=>{
         document.cookie = res
       }).then(()=>{
         navigate('/otp')
@@ -58,14 +69,25 @@ const Login = () => {
       password:password
     }
 
-    await axios.post('/api/admin/auth/login',config,data).then((res)=>{
-      console.log(res)
-      document.cookie = res
-    }).then(()=>{
-      navigate('/dashboard')
-    }).catch((err)=>{
-      console.log(err)
-    })
+    if(role === 'Admin'){
+      await axios.post('/api/admin/auth/login',config,data).then((res)=>{
+        console.log(res)
+        document.cookie = res
+      }).then(()=>{
+        navigate('/dashboard')
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
+    else if(role === "Faculty"){
+      await axios.post('/api/admin/faculty/login',config,data).then((res)=>{
+        document.cookie = res
+      }).then(()=>{
+        navigate('/dashboard')
+      }).catch((err)=>console.log(err))
+    }
+
+  
     
   };
 
@@ -211,12 +233,26 @@ const Login = () => {
               <TextInput
                 id="InstituteId"
                 value={instituteId}
+                type="text"
                 onChange={(e) => setInstitueId(e.target.value)}
                 placeholder="Institute Id"
                 required
               />
             </div>
 
+            {
+              (role==="Faculty")?
+              <div className="mb-2 block">
+              
+              <TextInput
+                id="Department"
+                // value={department}
+                onChange={(e) => setDepartment(e.target.value)}
+                placeholder="Department"
+                
+              />
+            </div>:""
+            }
             
 
             <div className="mb-2 block">
