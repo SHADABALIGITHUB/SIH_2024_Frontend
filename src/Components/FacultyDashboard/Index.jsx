@@ -10,59 +10,58 @@ import Blog from './FacultyComponents/blog/LatestPost';
 import Contact from './FacultyComponents/contact/Contact';
 import Events from './FacultyComponents/Events/Events';
 import useLocalStorage from 'use-local-storage'
-import {MyTheme} from '../../Context/ThemeContext';
+import { MyTheme } from '../../Context/ThemeContext';
 import { Profiler, useContext, useState } from 'react';
 
 
 
 const Index = () => {
-    
-    
-    const { Theme,setTheme} = useContext(MyTheme);
 
-     const [data, setData] = useState({
+
+    const { Theme, setTheme } = useContext(MyTheme);
+
+    const [data, setData] = useState({
         name: 'Dr. Sunil',
         education: "Ph.D. (Computer Engineering)",
-        img:[
+        img: [
             {
-            Profile:"https://law-teachers.in/teacher-img/passportsize%20photo.jpg",
-            Cover:"https://law-teachers.in/teacher-img/cover%20photo.jpg",
-            big:"https://law-teachers.in/teacher-img/cover%20photo.jpg",
-            creation_date:'',
-            updation_data:'',
-
+                Profile: "https://law-teachers.in/teacher-img/passportsize%20photo.jpg",
+                Cover: "https://law-teachers.in/teacher-img/cover%20photo.jpg",
+                big: "https://law-teachers.in/teacher-img/cover%20photo.jpg",
+                creation_date: '',
+                updation_data: '',
             }
-           ],
-            
-         socials: [  {
-                name: 'twitter',
-                link: 'https://twitter.com/'
-            },
-            {
-                name: 'linkedin',
-                link: 'https://www.linkedin.com/'
-            },
-            {
-                name: 'github',
-                link: 'pop'
+        ],
 
-            },
-            {
-                name: 'codepen',
-                link: 'https://codepen.io/'
-            },
-            {
-                name: 'hashnode',
-                link: 'https://hashnode.com/'
-            },
-            {
-                name: 'facebook',
-                link: 'https://www.facebook.com/'
-            }
+        socials: [{
+            name: 'twitter',
+            link: 'https://twitter.com/'
+        },
+        {
+            name: 'linkedin',
+            link: 'https://www.linkedin.com/'
+        },
+        {
+            name: 'github',
+            link: 'pop'
+
+        },
+        {
+            name: 'codepen',
+            link: 'https://codepen.io/'
+        },
+        {
+            name: 'hashnode',
+            link: 'https://hashnode.com/'
+        },
+        {
+            name: 'facebook',
+            link: 'https://www.facebook.com/'
+        }
         ]
         ,
         about: {
-            
+
             desc: `Hello! I'm Greg, and I'm based in Johannesburg, South Africa. I studied at Varisty College Sandton, where I completed my diploma in Software Development.<br /><br />Fastforward to today, and I can honestly say it's been a beautiful journery and I hope to grow even further as Software Engineer. My current focus these days is on expanidng my portfolio by building more projects that I can add on here, as well as being a great team player at my current role.<br /><br /> Here are a few technologies I’ve been working with recently:`,
             skills: [
                 'JavaScript (ES6+)',
@@ -78,7 +77,7 @@ const Index = () => {
             projects: 10,
             awards: 3,
             numberofLectures: "200+",
-        
+
         },
         publications: [
             {
@@ -96,7 +95,7 @@ const Index = () => {
                 desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec nisi nec nulla tincidunt fringilla',
                 creation_date: "2022-02-02",
                 updation_data: "2022-02-02",
-            }, 
+            },
             {
                 title: 'Publication 3',
                 link: 'https://www.google.com',
@@ -122,7 +121,7 @@ const Index = () => {
                 updation_data: "2022-02-02",
             },
         ],
-        WorkExperience:[
+        WorkExperience: [
             {
                 id: 1,
                 title: "Software Engineer",
@@ -186,7 +185,7 @@ const Index = () => {
                 ],
             },
         ],
-        Projects :[
+        Projects: [
             {
                 id: 1,
                 image: 'https://www.google.com',
@@ -196,7 +195,7 @@ const Index = () => {
                 creation_date: "2022-02-02",
                 updation_data: "2022-02-02",
             },
-        
+
             {
                 id: 2,
                 image: 'https://www/facebook.com',
@@ -229,43 +228,43 @@ const Index = () => {
                 updation_data: "2022-02-02",
             }],
 
-            events: [
-                {
-                  eventId: "EVT12345",
-                  eventName: "National Science Workshop",
-                  eventDate: "2024-09-15",
-                  eventLocation: "Delhi",
-                  eventDesc: "A workshop focused on the latest developments in science education."
-                },
-                {
-                  eventId: "EVT12346",
-                  eventName: "Mathematics Teachers Symposium",
-                  eventDate: "2024-10-01",
-                  eventLocation: "Mumbai",
-                  eventDesc: "A symposium dedicated to improving the teaching methodologies of mathematics."
-                },
-                {
-                  eventId: "EVT12347",
-                  eventName: "Technology in Education Conference",
-                  eventDate: "2024-11-20",
-                  eventLocation: "Bangalore",
-                  eventDesc: "Exploring the latest technological advancements that can enhance classroom learning."
-                },
-                {
-                  eventId: "EVT12348",
-                  eventName: "Physical Education and Sports Seminar",
-                  eventDate: "2024-12-05",
-                  eventLocation: "Kolkata",
-                  eventDesc: "A seminar aimed at promoting the importance of physical education in schools."
-                },
-                {
-                  eventId: "EVT12349",
-                  eventName: "Arts and Culture Teachers Conference",
-                  eventDate: "2024-08-25",
-                  eventLocation: "Chennai",
-                  eventDesc: "A conference focused on integrating arts and culture into the school curriculum."
-                }
-              ],
+        events: [
+            {
+                eventId: "EVT12345",
+                eventName: "National Science Workshop",
+                eventDate: "2024-09-15",
+                eventLocation: "Delhi",
+                eventDesc: "A workshop focused on the latest developments in science education."
+            },
+            {
+                eventId: "EVT12346",
+                eventName: "Mathematics Teachers Symposium",
+                eventDate: "2024-10-01",
+                eventLocation: "Mumbai",
+                eventDesc: "A symposium dedicated to improving the teaching methodologies of mathematics."
+            },
+            {
+                eventId: "EVT12347",
+                eventName: "Technology in Education Conference",
+                eventDate: "2024-11-20",
+                eventLocation: "Bangalore",
+                eventDesc: "Exploring the latest technological advancements that can enhance classroom learning."
+            },
+            {
+                eventId: "EVT12348",
+                eventName: "Physical Education and Sports Seminar",
+                eventDate: "2024-12-05",
+                eventLocation: "Kolkata",
+                eventDesc: "A seminar aimed at promoting the importance of physical education in schools."
+            },
+            {
+                eventId: "EVT12349",
+                eventName: "Arts and Culture Teachers Conference",
+                eventDate: "2024-08-25",
+                eventLocation: "Chennai",
+                eventDesc: "A conference focused on integrating arts and culture into the school curriculum."
+            }
+        ],
 
 
 
@@ -290,19 +289,19 @@ const Index = () => {
     })
 
 
-      
+
 
     return (
         <div className="app" data-theme={Theme}>
             <Sidebar />
             <main className='ml-[110px] md:ml-0'>
                 <Home data={data} />
-                <About data={data}/>
-                <Services data={data.publications}/>
-                <Experience  WorkExperience={data.WorkExperience}/>
+                <About data={data} />
+                <Services data={data.publications} />
+                <Experience WorkExperience={data.WorkExperience} />
                 <Projects Projects={data.Projects} />
                 <Events />
-                <StudentReviews data={data.studentReviews}/>
+                <StudentReviews data={data.studentReviews} />
                 <Blog />
                 <Contact theme={Theme} />
             </main>

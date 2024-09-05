@@ -9,9 +9,10 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
 import axiosInstance from "../../lib/axiosInstance";
+import toast from "react-hot-toast";
 
 const Login = () => {
-  
+
   const { isnotLogged, setLogged } = useContext(Authcontext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,23 +24,23 @@ const Login = () => {
 
   const navigate = useNavigate()
 
-  const handleRegister = async() => {
+  const handleRegister = async () => {
     if (confirmPassword === password) {
-        
+
       const data = {
-        name:username,
-        email:email,
-        password:password,
-        instituteId:instituteId,
+        name: username,
+        email: email,
+        password: password,
+        instituteId: instituteId,
       }
 
       // Register api call
-      await axiosInstance.post('/api/admin/auth/register',data).then((res)=>{
+      await axiosInstance.post('/api/admin/auth/register', data).then((res) => {
         document.cookie = res
-      }).then(()=>{
-        navigate('/otp')
-      }).catch((err)=>{
-        console.log("Error message:-->>"+err)
+      }).then(() => {
+        navigate('/Otp/admin')
+      }).catch((err) => {
+        console.log(err)
       })
 
     } else {
@@ -50,23 +51,44 @@ const Login = () => {
     }
   };
 
-  const handlelogin = async() => {
+  const handlelogin = async () => {
     // login api call
 
-    const data = {
-      email:email,
-      password:password
+    // const data = {
+    //   email: email,
+    //   password: password
+    // }
+
+    try {
+
+      axiosInstance.post("/api/admin/auth/verify", { email })
+        .then(async (response) => {
+          const res = await axiosInstance.post(`/api/admin/auth/login`, { email, password });
+          toast.success("Logged in successfully");
+          navigate('/dashboard');
+        })
+        .catch(async (err) => {
+          console.log(err);
+          toast.error("Not verified. Verify yourself first.");
+          await axiosInstance.post("/api/admin/auth/resend-otp", { email });
+          navigate("/Otp/admin");
+        });
+
+    } catch (error) {
+      console.log(error);
     }
 
-    await axios.post('/api/admin/auth/login',config,data).then((res)=>{
-      console.log(res)
-      document.cookie = res
-    }).then(()=>{
-      navigate('/dashboard')
-    }).catch((err)=>{
-      console.log(err)
-    })
-    
+
+
+    // await axios.post('/api/admin/auth/login',config,data).then((res)=>{
+    //   console.log(res)
+    //   document.cookie = res
+    // }).then(()=>{
+    //   navigate('/dashboard')
+    // }).catch((err)=>{
+    //   console.log(err)
+    // })
+
   };
 
   return (
@@ -76,9 +98,8 @@ const Login = () => {
         className={`w-[70%] relative  min-h-[80%] max-h-[95%] h-auto bg-card border-background/20 border-2 rounded-lg overflow-hidden flex shadow-2xl shadow-background`}
       >
         <div
-          className={`md:flex flex-col justify-center items-center gap-5 rounded-xl bg-card md:w-[50%] w-full md:py-12 py-6 ${
-            isnotLogged ? "hidden" : "flex"
-          }`}
+          className={`md:flex flex-col justify-center items-center gap-5 rounded-xl bg-card md:w-[50%] w-full md:py-12 py-6 ${isnotLogged ? "hidden" : "flex"
+            }`}
         >
           <h1 className="text-3xl font-semibold font-Google1 text-mytext">
             Admin Login{" "}
@@ -146,11 +167,10 @@ const Login = () => {
 
         {/*  */}
         <div
-          className={`absolute w-[50%] ${
-            isnotLogged
+          className={`absolute w-[50%] ${isnotLogged
               ? "left-0 rounded-r-[64px] "
               : "right-0 rounded-l-[64px] "
-          } bg-primary z-10 hidden md:flex flex-col justify-center items-center text-mytext h-full  gap-5 transition-[border-radius] duration-[100ms] ease-in-out `}
+            } bg-primary z-10 hidden md:flex flex-col justify-center items-center text-mytext h-full  gap-5 transition-[border-radius] duration-[100ms] ease-in-out `}
         >
           <h1 className="font-normal text-[2.1rem] font-Google1 cursor-pointer">
             {isnotLogged ? "Have An Account!!!" : "Create New Account"}
@@ -170,9 +190,8 @@ const Login = () => {
 
         {/* signup form */}
         <div
-          className={`md:w-[50%] h-auto w-[100%] md:flex flex-col justify-center items-center gap-5 rounded-xl bg-card py-12 ${
-            isnotLogged ? "flex" : "hidden"
-          }`}
+          className={`md:w-[50%] h-auto w-[100%] md:flex flex-col justify-center items-center gap-5 rounded-xl bg-card py-12 ${isnotLogged ? "flex" : "hidden"
+            }`}
         >
           <h1 className=""></h1>
           <h1 className="text-3xl text-mytext font-semibold font-Google1">Sign Up</h1>
@@ -186,7 +205,7 @@ const Login = () => {
                 <Inputs id={"confirmPassword"} wrong={wrong} value={confirmPassword} Changes={(e)=>setConfirmPassword(e.target.value)} pholder='Confirm Password'/> */}
 
             <div className="mb-2 block ">
-              
+
               <TextInput
                 id="Admin"
                 onChange={(e) => setUsername(e.target.value)}
@@ -196,7 +215,7 @@ const Login = () => {
             </div>
 
             <div className="mb-2 block">
-              
+
               <TextInput
                 id="email"
                 value={email}
@@ -207,7 +226,7 @@ const Login = () => {
             </div>
 
             <div className="mb-2 block">
-              
+
               <TextInput
                 id="InstituteId"
                 value={instituteId}
@@ -217,10 +236,10 @@ const Login = () => {
               />
             </div>
 
-            
+
 
             <div className="mb-2 block">
-              
+
               <TextInput
                 id="password"
                 type="password"
@@ -232,7 +251,7 @@ const Login = () => {
             </div>
 
             <div className="mb-2 block">
-              
+
               <TextInput
                 id="confirmPassword"
                 type="password"

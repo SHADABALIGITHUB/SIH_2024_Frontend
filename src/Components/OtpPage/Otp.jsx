@@ -26,10 +26,12 @@ const Otp = ({ length = 6 }) => {
         await axiosInstance.post(`/api/${user}/auth/verify-otp`, data).then((res) => {
             toast.success("User verified successfully");
             if(user == "faculty"){
-                navigate('/faculty');
+                toast.success("Login to your account")
+                navigate('/auth/faculty');
             }
             else {
-                navigate("/dashboard");
+                toast.success("Login to your account")
+                navigate("/auth/admin");
             }
         }).catch((err) => {
             console.log(err)
