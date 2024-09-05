@@ -1,15 +1,17 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import toast from 'react-hot-toast'
 import Authcontext from '../../Context/Authcontext'
 
+import axiosInstance from '../../lib/axiosInstance'
 const Otp = ({ length = 6 }) => {
 
     const [otp, setOtp] = useState(new Array(length).fill(""))
     const inputRef = useRef([])
     const [finalotp, setFinalotp] = useState()
     const navigate = useNavigate()
-    const {role} = useContext(Authcontext)
+    const { role } = useContext(Authcontext)
 
     useEffect(() => {
         if (inputRef.current[0]) {
@@ -18,41 +20,35 @@ const Otp = ({ length = 6 }) => {
     }, [])
 
     const handleSubmit = async () => {
-        const data = {
-            otp: finalotp
-        }
-
-    const handleSubmit =async()=>{
-        //otp api check
         const data = JSON.stringify({
-            otp:finalotp
+            email:localStorage.getItem("email"),
+            otp: finalotp
         })
 
+        console.log("mohit hu mai")
+        
+
         if(role === "Admin"){
-            await axios.post('/api/admin/auth/verify-otp',config,data).then((res)=>{
-                if(res === "User registered successfully."){
-                    alert(res)
-                    navigate('/dashboard')
-                }else{
-                    alert(res)
-                }
-            }).catch((err)=>{
+            
+            await axiosInstance.post(`/api/admin/auth/verify-otp`, data).then((res) => {
+                toast.success("User verified successfully");
+                navigate("/dashboard");
+                
+            }).catch((err) => {
+                console.log(err)
+            })
+        }else if(role === "Faculty"){
+            await axiosInstance.post(`/api/faculty/auth/verify-otp`, data).then((res) => {
+                toast.success("User verified successfully");
+                
+                    navigate('/tech');
+               
+            }).catch((err) => {
                 console.log(err)
             })
         }
-        else if(role === 'Faculty'){
-            await axios.post('/api/faculty/auth/verify-otp',config,data).then((res)=>{
-                if(res === "User registered successfully."){
-                    alert(res)
-                    navigate('/dashboard')
-                }else{
-                    alert(res)
-                }
-            }).catch((err)=>{
-                console.log(err)
-            })
-        }
-    }       
+
+    }
 
     const handleChange = (index, e) => {
         const value = e.target.value

@@ -15,6 +15,7 @@ import Index from './Components/FacultyDashboard/Index'
 import AdminORFaculty  from './Components/Confirms&Alerts/AdminORFaculty'
 import { Toaster } from 'react-hot-toast'
 import Authcontext from './Context/Authcontext'
+import FacultyPersonal from './Components/FacultyDashboard/FirstTimeLogin/FacultyPersonal'
 function App() {
   const [Theme, settheme] = useState("light");
   const {role} = useContext(Authcontext)
@@ -48,7 +49,7 @@ function App() {
           
           
           
-          <Route path="/Otp/:user" element={<Otp/>} />
+          <Route path="/otp" element={<Otp/>} />
 
         </Routes>
       </BrowserRouter>

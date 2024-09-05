@@ -8,11 +8,11 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
+import toast from "react-hot-toast";
 import axiosInstance from "../../lib/axiosInstance";
 
 const Login = () => {
-  
-  const { isnotLogged, setLogged,role } = useContext(Authcontext);
+  const { isnotLogged, setLogged, role } = useContext(Authcontext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -22,37 +22,54 @@ const Login = () => {
   const [instituteId, setInstitueId] = useState("");
   const [department, setDepartment] = useState("");
 
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-
-  const handleRegister = async() => {
+  const handleRegister = async () => {
     if (confirmPassword === password) {
-        
-      const data = JSON.stringify({
-        name:username,
-        email:email,
-        password:password,
-        instituteId:instituteId,
-      })
-      const facultydata = JSON.stringify({
-        name:username,
-        email:email,
-        password:password,
-        institutionId:instituteId,
-        department:department
-      })
+      const admindata = {
+        name: username,
+        email: email,
+        password: password,
+        instituteId: instituteId,
+      };
+      const facultydata = {
+        name: username,
+        email: email,
+        password: password,
+        instituteId: instituteId,
+        department: department,
+      };
 
-      alert(username+email+password+instituteId)
+      localStorage.setItem("email", email);
 
       // Register api call
-      await axios.post('/api/admin/auth/register',config,data).then((res)=>{
-        document.cookie = res
-      }).then(()=>{
-        navigate('/otp')
-      }).catch((err)=>{
-        console.log("Error message:-->>"+err)
-      })
-
+      if (role === "Admin") {
+        const data = JSON.stringify(admindata);
+        await axiosInstance
+          .post("/api/admin/auth/register", data)
+          .then((res) => {
+            console.log(res);
+          })
+          .then(() => {
+            navigate("/otp");
+          })
+          .catch((err) => {
+            console.log("Error message:-->>" + err);
+          });
+      } else if (role === "Faculty") {
+        const data = JSON.stringify(facultydata);
+        await axiosInstance
+          .post("/api/faculty/auth/register", facultydata)
+          .then((res) => {
+            console.log(res);
+          })
+          .then(() => {
+            navigate("/otp");
+          })
+          .catch((err) => {
+            console.log("Error message:-->>" + err);
+          });
+      }
     } else {
       setWrong("border animate-shake animate-twice animate-duration-1000");
       setTimeout(() => {
@@ -61,34 +78,48 @@ const Login = () => {
     }
   };
 
-  const handlelogin = async() => {
+  const handlelogin = async () => {
     // login api call
 
     const data = {
-      email:email,
-      password:password
-    }
+      email: email,
+      password: password,
+    };
 
-    if(role === 'Admin'){
-      await axios.post('/api/admin/auth/login',config,data).then((res)=>{
-        console.log(res)
-        document.cookie = res
-      }).then(()=>{
-        navigate('/dashboard')
-      }).catch((err)=>{
-        console.log(err)
-      })
+    if (role === "Admin") {
+      await axiosInstance
+        .post("/api/admin/auth/login", data)
+        .then((res) => {
+          console.log(res);
+        })
+        .then(() => {
+          navigate("/dashboard");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (role === "Faculty") {
+      try {
+        axiosInstance
+          .post("/api/faculty/auth/verify", { email })
+          .then(async (response) => {
+            const res = await axiosInstance.post(
+              `/api/faculty/auth/login`,
+              data
+            );
+            toast.success("Logged in successfully");
+            navigate("/tech");
+          })
+          .catch(async (err) => {
+            console.log(err);
+            toast.error("Not verified");
+            await axiosInstance.post("/api/faculty/auth/resend-otp", { email });
+            navigate("/otp");
+          });
+      } catch (err) {
+        console.log(err);
+      }
     }
-    else if(role === "Faculty"){
-      await axios.post('/api/admin/faculty/login',config,data).then((res)=>{
-        document.cookie = res
-      }).then(()=>{
-        navigate('/dashboard')
-      }).catch((err)=>console.log(err))
-    }
-
-  
-    
   };
 
   return (
@@ -103,7 +134,7 @@ const Login = () => {
           }`}
         >
           <h1 className="text-3xl font-semibold font-Google1 text-mytext">
-            Admin Login{" "}
+            {role} Login{" "}
           </h1>
 
           <div className="flex flex-col gap-6">
@@ -197,7 +228,9 @@ const Login = () => {
           }`}
         >
           <h1 className=""></h1>
-          <h1 className="text-3xl text-mytext font-semibold font-Google1">Sign Up</h1>
+          <h1 className="text-3xl text-mytext font-semibold font-Google1">
+            Sign Up
+          </h1>
 
           <div action="" className="flex w-3/4 flex-col gap-2">
             {/* <Inputs id={"User"} value={username} Changes={(e)=>setUsername(e.target.value)} pholder='UserName'/>
@@ -208,7 +241,6 @@ const Login = () => {
                 <Inputs id={"confirmPassword"} wrong={wrong} value={confirmPassword} Changes={(e)=>setConfirmPassword(e.target.value)} pholder='Confirm Password'/> */}
 
             <div className="mb-2 block ">
-              
               <TextInput
                 id="Admin"
                 onChange={(e) => setUsername(e.target.value)}
@@ -218,7 +250,6 @@ const Login = () => {
             </div>
 
             <div className="mb-2 block">
-              
               <TextInput
                 id="email"
                 value={email}
@@ -229,7 +260,6 @@ const Login = () => {
             </div>
 
             <div className="mb-2 block">
-              
               <TextInput
                 id="InstituteId"
                 value={instituteId}
@@ -240,23 +270,20 @@ const Login = () => {
               />
             </div>
 
-            {
-              (role==="Faculty")?
+            {role === "Faculty" ? (
               <div className="mb-2 block">
-              
-              <TextInput
-                id="Department"
-                // value={department}
-                onChange={(e) => setDepartment(e.target.value)}
-                placeholder="Department"
-                
-              />
-            </div>:""
-            }
-            
+                <TextInput
+                  id="Department"
+                  // value={department}
+                  onChange={(e) => setDepartment(e.target.value)}
+                  placeholder="Department"
+                />
+              </div>
+            ) : (
+              ""
+            )}
 
             <div className="mb-2 block">
-              
               <TextInput
                 id="password"
                 type="password"
@@ -268,7 +295,6 @@ const Login = () => {
             </div>
 
             <div className="mb-2 block">
-              
               <TextInput
                 id="confirmPassword"
                 type="password"
@@ -278,7 +304,9 @@ const Login = () => {
                 className={`${wrong} rounded-lg border-red-700`}
                 required
               />
-              {!wrong && <p className="text-red-500 text-sm">Passwords do not match</p>}
+              {!wrong && (
+                <p className="text-red-500 text-sm">Passwords do not match</p>
+              )}
             </div>
 
             <div className="flex gap-2 justify-center items-center border-gray-500 border cursor-pointer p-1 rounded">

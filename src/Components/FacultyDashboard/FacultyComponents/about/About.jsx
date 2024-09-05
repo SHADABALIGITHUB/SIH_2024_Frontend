@@ -1,13 +1,13 @@
 import React from 'react';
 import './About.css';
-
+import Resume from '../../../../assets/megamaam.pdf';
 
 import AboutBox from './AboutBox';
 
 import Image from "../../../../assets/Faculty/avatar-2.svg"
 const About = ({data}) => {
     const downloadResume = async () => {
-        window.open(data.about.Resume, '_blank');
+        window.open(Resume, '_blank');
     }
 
 
