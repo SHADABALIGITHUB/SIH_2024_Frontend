@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { BrowserRouter, Route ,Routes} from 'react-router-dom'
 import { LandingPage } from './pages/LandingPage/Landing'
@@ -13,8 +13,10 @@ import Dashboard from './Components/Dashboard/AdminDashboard'
 // import Overlayer from './pages/Overlay/Overlayer'
 import AdminORFaculty  from './Components/Confirms&Alerts/AdminORFaculty'
 import { Toaster } from 'react-hot-toast'
+import Authcontext from './Context/Authcontext'
 function App() {
   const [Theme, settheme] = useState("light");
+  const {role} = useContext(Authcontext)
 
 
   const setTheme = (theme) => {
@@ -34,10 +36,8 @@ function App() {
           <Route path="/" element={<LandingPage />} />
          
           <Route path="/auth" element={<Overlayer/>} >
-              <Route path="admin" element={<Login/>} />
-              <Route path="faculty" element={<Register/>} >
-                
-              </Route>
+              <Route path={role} element={<Login/>} />
+              
           </Route>
           <Route path="/confirm" element={<AdminORFaculty/>} />
           <Route path="/dashboard" element={<Dashboard/> } /> 

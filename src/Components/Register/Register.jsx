@@ -23,7 +23,6 @@ const Register = () => {
   // const [role,setRole] = useState('')
   const [wrong, setWrong] = useState("border-none");
   const [instituteId, setInstitueId] = useState("");
-  const [department, setDepartment] = useState("");
 
   const config ={
     headers:{

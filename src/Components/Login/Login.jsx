@@ -11,7 +11,7 @@ import axios from "axios";
 
 const Login = () => {
   
-  const { isnotLogged, setLogged } = useContext(Authcontext);
+  const { isnotLogged, setLogged,role } = useContext(Authcontext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -19,6 +19,8 @@ const Login = () => {
   // const [role,setRole] = useState('')
   const [wrong, setWrong] = useState("border-none");
   const [instituteId, setInstitueId] = useState("");
+  const [department, setDepartment] = useState("");
+
 
   const navigate = useNavigate()
 
@@ -37,15 +39,34 @@ const Login = () => {
         password:password,
         instituteId:instituteId,
       }
+      const facultydata = {
+        name:username,
+        email:email,
+        password:password,
+        instituteId:instituteId,
+        department:department
+      }
 
       // Register api call
-      await axios.post('/api/admin/auth/register',config,data).then((res)=>{
-        document.cookie = res
-      }).then(()=>{
-        navigate('/otp')
-      }).catch((err)=>{
-        console.log("Error message:-->>"+err)
-      })
+      if(role === "Admin"){
+        await axios.post('/api/admin/auth/register',config,data).then((res)=>{
+          document.cookie = res
+        }).then(()=>{
+          navigate('/otp')
+        }).catch((err)=>{
+          console.log("Error message:-->>"+err)
+        })
+
+      }else if(role === "Faculty"){
+        await axios.post('/api/faculty/auth/register',config,facultydata).then((res)=>{
+          document.cookie = res
+        }).then(()=>{
+          navigate('/otp')
+        }).catch((err)=>{
+          console.log("err"+err)
+        })
+      }
+
 
     } else {
       setWrong("border animate-shake animate-twice animate-duration-1000");
@@ -63,14 +84,25 @@ const Login = () => {
       password:password
     }
 
-    await axios.post('/api/admin/auth/login',config,data).then((res)=>{
-      console.log(res)
-      document.cookie = res
-    }).then(()=>{
-      navigate('/dashboard')
-    }).catch((err)=>{
-      console.log(err)
-    })
+    if(role === 'Admin'){
+      await axios.post('/api/admin/auth/login',config,data).then((res)=>{
+        console.log(res)
+        document.cookie = res
+      }).then(()=>{
+        navigate('/dashboard')
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
+    else if(role === "Faculty"){
+      await axios.post('/api/admin/faculty/login',config,data).then((res)=>{
+        document.cookie = res
+      }).then(()=>{
+        navigate('/dashboard')
+      }).catch((err)=>console.log(err))
+    }
+
+  
     
   };
 
@@ -222,6 +254,19 @@ const Login = () => {
               />
             </div>
 
+            {
+              (role==="Faculty")?
+              <div className="mb-2 block">
+              
+              <TextInput
+                id="Department"
+                // value={department}
+                onChange={(e) => setDepartment(e.target.value)}
+                placeholder="Department"
+                
+              />
+            </div>:""
+            }
             
 
             <div className="mb-2 block">

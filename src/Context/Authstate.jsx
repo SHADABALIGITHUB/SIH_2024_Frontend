@@ -4,10 +4,11 @@ import Authcontext from './Authcontext'
 const Authstate = ({children}) => {
 
     const [isnotLogged,setLogged] = useState(false)
+    const [role,setRole] = useState("")
 
   return (
     <>
-        <Authcontext.Provider value={{isnotLogged,setLogged}}>
+        <Authcontext.Provider value={{isnotLogged,setLogged,role,setRole}}>
             {children}
         </Authcontext.Provider>
     </>

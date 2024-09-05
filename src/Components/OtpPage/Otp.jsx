@@ -1,6 +1,7 @@
 import axios from 'axios'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Authcontext from '../../Context/Authcontext'
 
 const Otp = ({length=6}) => {
 
@@ -8,6 +9,7 @@ const Otp = ({length=6}) => {
     const inputRef = useRef([])
     const [finalotp,setFinalotp] = useState()
     const navigate = useNavigate()
+    const {role} = useContext(Authcontext)
 
     useEffect(()=>{
         if(inputRef.current[0]){
@@ -27,16 +29,29 @@ const Otp = ({length=6}) => {
             otp:finalotp
         })
 
-        await axios.post('/api/admin/auth/verify-otp',config,data).then((res)=>{
-            if(res === "User registered successfully."){
-                alert(res)
-                navigate('/dashboard')
-            }else{
-                alert(res)
-            }
-        }).catch((err)=>{
-            console.log(err)
-        })
+        if(role === "Admin"){
+            await axios.post('/api/admin/auth/verify-otp',config,data).then((res)=>{
+                if(res === "User registered successfully."){
+                    alert(res)
+                    navigate('/dashboard')
+                }else{
+                    alert(res)
+                }
+            }).catch((err)=>{
+                console.log(err)
+            })
+        }else if(role === 'Faculty'){
+            await axios.post('/api/faculty/auth/verify-otp',config,data).then((res)=>{
+                if(res === "User registered successfully."){
+                    alert(res)
+                    navigate('/dashboard')
+                }else{
+                    alert(res)
+                }
+            }).catch((err)=>{
+                console.log(err)
+            })
+        }
     }        
 
     const handleChange = (index,e)=>{
