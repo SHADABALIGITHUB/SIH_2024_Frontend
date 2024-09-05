@@ -9,11 +9,13 @@ import Otp from './Components/OtpPage/Otp'
 import Register from './Components/Register/Register'
 import Dashboard from './Components/Dashboard/AdminDashboard'
 
+import Index from './Components/FacultyDashboard/Index'
 
 // import Overlayer from './pages/Overlay/Overlayer'
 import AdminORFaculty  from './Components/Confirms&Alerts/AdminORFaculty'
 import { Toaster } from 'react-hot-toast'
 import Authcontext from './Context/Authcontext'
+import FacultyPersonal from './Components/FacultyDashboard/FirstTimeLogin/FacultyPersonal'
 function App() {
   const [Theme, settheme] = useState("light");
   const {role} = useContext(Authcontext)
@@ -41,11 +43,13 @@ function App() {
           </Route>
           <Route path="/confirm" element={<AdminORFaculty/>} />
           <Route path="/dashboard" element={<Dashboard/> } /> 
+          <Route path="/faculty" element={<FacultyPersonal/> } /> 
           <Route path="*" element={<h1>404</h1>} />
+          <Route path="/tech" element={<Index/>} />
           
           
           
-          <Route path="/Otp" element={<Otp/>} />
+          <Route path="/Otp/:user" element={<Otp/>} />
 
         </Routes>
       </BrowserRouter>

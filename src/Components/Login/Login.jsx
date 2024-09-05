@@ -8,6 +8,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
+import axiosInstance from "../../lib/axiosInstance";
 
 const Login = () => {
   
@@ -23,12 +24,6 @@ const Login = () => {
 
 
   const navigate = useNavigate()
-
-  const config ={
-    headers:{
-      "Content-Type":"application/json"
-    }
-  }
 
   const handleRegister = async() => {
     if (confirmPassword === password) {
@@ -50,6 +45,7 @@ const Login = () => {
       alert(username+email+password+instituteId)
 
       // Register api call
+<<<<<<< HEAD
       if(role === "Admin"){
         await axios.post('http://localhost:3000/api/admin/auth/register',config,data).then((res)=>{
           console.log(res)
@@ -69,6 +65,15 @@ const Login = () => {
         })
       }
 
+=======
+      await axiosInstance.post('/api/admin/auth/register',data).then((res)=>{
+        document.cookie = res
+      }).then(()=>{
+        navigate('/otp')
+      }).catch((err)=>{
+        console.log("Error message:-->>"+err)
+      })
+>>>>>>> origin/main
 
     } else {
       setWrong("border animate-shake animate-twice animate-duration-1000");
