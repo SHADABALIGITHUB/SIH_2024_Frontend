@@ -74,9 +74,13 @@ const FacultyPersonal = () => {
 
 
     // NEED TO IMPLEMENT
-    const fetchData = () => {
+    const fetchData = async () => {
         try {
-            const res = axiosInstance.get("/api/faculty/auth")
+            console.log(document.cookie.token)
+            const fid = axiosInstance.get("/decode-token",{headers:{Authorization:document.cookie.token}})
+            .then(data => { console.log(data); return data; })
+            .catch(err => {console.log(err)});
+            // const res = await axiosInstance.get("/api/faculty/meta",{params:{fid:}})
         } catch (error) {
             console.log(error);
         }

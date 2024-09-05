@@ -49,7 +49,7 @@ function App() {
           
           
           
-          <Route path="/Otp" element={<Otp/>} />
+          <Route path="/Otp/:user" element={<Otp/>} />
 
         </Routes>
       </BrowserRouter>
