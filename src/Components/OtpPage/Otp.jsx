@@ -1,7 +1,6 @@
 import axios from 'axios'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import axiosInstance from '../../lib/axiosInstance'
 import toast from 'react-hot-toast'
 
 const Otp = ({ length = 6 }) => {
@@ -10,7 +9,7 @@ const Otp = ({ length = 6 }) => {
     const inputRef = useRef([])
     const [finalotp, setFinalotp] = useState()
     const navigate = useNavigate()
-    const { user } = useParams();
+    const { role } = useContext(Authcontext)
 
     useEffect(() => {
         if (inputRef.current[0]) {
@@ -19,11 +18,11 @@ const Otp = ({ length = 6 }) => {
     }, [])
 
     const handleSubmit = async () => {
-        const data = {
+        const data = JSON.stringify({
             otp: finalotp
-        }
+        })
 
-        await axiosInstance.post(`/api/${user}/auth/verify-otp`, data).then((res) => {
+        await axios.post(`/api/${role}/auth/verify-otp`, data).then((res) => {
             toast.success("User verified successfully");
             if(user == "faculty"){
                 navigate('/faculty');

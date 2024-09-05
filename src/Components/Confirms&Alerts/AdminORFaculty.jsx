@@ -2,7 +2,7 @@
 import { Button } from "flowbite-react";
 import { FaShieldAlt } from "react-icons/fa";
 import { IoMdSchool } from "react-icons/io";
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Image from "../../assets/Index.js";
 import { useNavigate } from "react-router-dom";
@@ -16,19 +16,16 @@ const AdminORFaculty = () => {
     const [isFaculty, setIsFaculty] = useState(false);
     const [admin, setAdmin] = useState(false);
 
-    
-
     const navigate = useNavigate();
 
-    const handleAdmin = () => {
-
-        navigate(`/auth/${role}`);
-
-    }
-    const handleFaculty = () => {
-
-        navigate(`/auth/${role}`);
-    }
+    useEffect(()=>{
+      if(role===""){
+        navigate(`/confirm`)
+      }else{
+        navigate(`/auth/${role}`)
+      }
+    },[role])
+    
 
 
   return (
@@ -46,7 +43,7 @@ const AdminORFaculty = () => {
        
 
 
-        <Button size="xl" outline gradientDuoTone="greenToBlue" onClick={()=>{setRole("Admin");handleAdmin()}} > <FaShieldAlt className='mr-2 h-5 w-5'  />  Admin</Button>
+        <Button size="xl" outline gradientDuoTone="greenToBlue" onClick={()=>{setRole("Admin")}} > <FaShieldAlt className='mr-2 h-5 w-5'  />  Admin</Button>
 
        
 
@@ -60,7 +57,7 @@ const AdminORFaculty = () => {
           
        
 
-        <Button size="xl" outline gradientDuoTone="greenToBlue" onClick={()=>{setRole("Faculty");handleFaculty()}}>   <IoMdSchool className='mr-2 h-5 w-5'  /> Faculty </Button>
+        <Button size="xl" outline gradientDuoTone="greenToBlue" onClick={()=>{setRole("Faculty")}}>   <IoMdSchool className='mr-2 h-5 w-5'  /> Faculty </Button>
              
        
         </div>

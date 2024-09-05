@@ -28,30 +28,45 @@ const Login = () => {
   const handleRegister = async() => {
     if (confirmPassword === password) {
         
-      const data = JSON.stringify({
+      const admindata = ({
         name:username,
         email:email,
         password:password,
         instituteId:instituteId,
       })
-      const facultydata = JSON.stringify({
+      const facultydata = ({
         name:username,
         email:email,
         password:password,
-        institutionId:instituteId,
+        instituteId:instituteId,
         department:department
       })
 
       alert(username+email+password+instituteId)
 
       // Register api call
-      await axiosInstance.post('/api/admin/auth/register',data).then((res)=>{
-        document.cookie = res
-      }).then(()=>{
-        navigate('/otp')
-      }).catch((err)=>{
-        console.log("Error message:-->>"+err)
-      })
+      if(role === "Admin"){
+        const data = JSON.stringify(admindata)
+        await axios.post('http://0.0.0.0:3000/api/admin/auth/register',data).then((res)=>{
+          console.log(res)
+        }).then(()=>{
+          navigate('/otp')
+        }).catch((err)=>{
+          console.log("Error message:-->>"+err)
+        })
+      }
+      else if(role === "Faculty"){
+        const data  = JSON.stringify(facultydata)
+        await axios.post('http://0.0.0.0:3000/api/faculty/auth/register',facultydata).then((res)=>{
+          console.log(res)
+        }).then(()=>{
+          navigate('/otp')
+        }).catch((err)=>{
+          console.log("Error message:-->>"+err)
+        })
+      }
+
+      
 
     } else {
       setWrong("border animate-shake animate-twice animate-duration-1000");
