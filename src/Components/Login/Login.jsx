@@ -42,6 +42,8 @@ const Login = () => {
         department:department
       })
 
+      localStorage.setItem("email",email)
+
       // Register api call
       if(role === "Admin"){
         const data = JSON.stringify(admindata)

@@ -20,8 +20,10 @@ const Otp = ({ length = 6 }) => {
 
     const handleSubmit = async () => {
         const data = JSON.stringify({
+            email:localStorage.getItem("email"),
             otp: finalotp
         })
+        
 
         if(role === "Admin"){
             await axios.post(`/api/admin/auth/verify-otp`, data).then((res) => {
