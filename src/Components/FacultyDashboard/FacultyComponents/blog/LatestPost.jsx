@@ -1,10 +1,12 @@
 import React from 'react';
-import './Blog.css';
+import './LatestPost.css';
 
 import Image1 from '../../../../assets/Faculty/blog-1.svg';
 
 
-const Blog = () => {
+
+const LatestPost = ({data}) => {
+    
     return (
         <section className="blog container section" id="blog">
             <h2 className="h2 section__title">Latest Posts</h2>
@@ -29,4 +31,4 @@ const Blog = () => {
     )
 }
 
-export default Blog
+export default LatestPost;

@@ -1,6 +1,6 @@
 import React from 'react'
 import { RiFireLine, RiCupLine, RiGroupLine, RiTrophyLine } from 'react-icons/ri';
-
+import { MdOutlineClass } from "react-icons/md";
 const AboutBox = ({About}) => {
     const stats = [
         {
@@ -22,6 +22,11 @@ const AboutBox = ({About}) => {
             icon: <RiTrophyLine className='about__icon text-mytext' />,
             value: About.awards||"1",
             label: 'Awards'
+        },
+        {
+            icon: <MdOutlineClass className='about__icon text-mytext'/>,
+            value: About?.numberofLectures||"0",
+            label: 'Number of Lectures'
         }
     ];
     return (

@@ -3,9 +3,7 @@ import "./Resume.css";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Button from "./Button";
 
-import WorkExperience from "./WorkExperience";
-
-const Resume = () => {
+const Experience = ({WorkExperience}) => {
     const [tabIndex, setTabIndex] = useState(0);
 
     return (
@@ -53,4 +51,4 @@ const Resume = () => {
     );
 };
 
-export default Resume;
+export default Experience;
