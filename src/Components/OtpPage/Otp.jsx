@@ -39,7 +39,8 @@ const Otp = ({ length = 6 }) => {
             }).catch((err)=>{
                 console.log(err)
             })
-        }else if(role === 'Faculty'){
+        }
+        else if(role === 'Faculty'){
             await axios.post('/api/faculty/auth/verify-otp',config,data).then((res)=>{
                 if(res === "User registered successfully."){
                     alert(res)
@@ -51,7 +52,7 @@ const Otp = ({ length = 6 }) => {
                 console.log(err)
             })
         }
-    }        
+    }       
 
     const handleChange = (index, e) => {
         const value = e.target.value
@@ -92,7 +93,7 @@ const Otp = ({ length = 6 }) => {
                     <h1 className="text-3xl font-extrabold">Verify</h1>
                     <p className="">Your code has been send via your email</p>
                     <div className="my-3">
-                        {/* otp boxes */}
+                        
                         {
                             otp.map((value, index) => {
 
@@ -110,6 +111,6 @@ const Otp = ({ length = 6 }) => {
             </div>
         </>
     )
-}
+    }
 
 export default Otp
