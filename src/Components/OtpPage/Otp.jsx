@@ -1,14 +1,7 @@
 import axios from 'axios'
-<<<<<<< HEAD
-import React, { useEffect, useRef, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import axiosInstance from '../../lib/axiosInstance'
-import toast from 'react-hot-toast'
-=======
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Authcontext from '../../Context/Authcontext'
->>>>>>> featured1
 
 const Otp = ({ length = 6 }) => {
 
@@ -16,11 +9,7 @@ const Otp = ({ length = 6 }) => {
     const inputRef = useRef([])
     const [finalotp, setFinalotp] = useState()
     const navigate = useNavigate()
-<<<<<<< HEAD
-    const { user } = useParams();
-=======
     const {role} = useContext(Authcontext)
->>>>>>> featured1
 
     useEffect(() => {
         if (inputRef.current[0]) {
@@ -33,20 +22,6 @@ const Otp = ({ length = 6 }) => {
             otp: finalotp
         }
 
-<<<<<<< HEAD
-        await axiosInstance.post(`/api/${user}/auth/verify-otp`, data).then((res) => {
-            toast.success("User verified successfully");
-            if(user == "faculty"){
-                navigate('/faculty');
-            }
-            else {
-                navigate("/dashboard");
-            }
-        }).catch((err) => {
-            console.log(err)
-        })
-    }
-=======
     const handleSubmit =async()=>{
         //otp api check
         const data = JSON.stringify({
@@ -77,7 +52,6 @@ const Otp = ({ length = 6 }) => {
             })
         }
     }        
->>>>>>> featured1
 
     const handleChange = (index, e) => {
         const value = e.target.value

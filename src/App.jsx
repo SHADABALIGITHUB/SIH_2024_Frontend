@@ -14,11 +14,7 @@ import Index from './Components/FacultyDashboard/Index'
 // import Overlayer from './pages/Overlay/Overlayer'
 import AdminORFaculty  from './Components/Confirms&Alerts/AdminORFaculty'
 import { Toaster } from 'react-hot-toast'
-<<<<<<< HEAD
-import FacultyPersonal from './Components/FacultyDashboard/FirstTimeLogin/FacultyPersonal'
-=======
 import Authcontext from './Context/Authcontext'
->>>>>>> featured1
 function App() {
   const [Theme, settheme] = useState("light");
   const {role} = useContext(Authcontext)
