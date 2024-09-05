@@ -45,27 +45,6 @@ const Login = () => {
       alert(username+email+password+instituteId)
 
       // Register api call
-<<<<<<< HEAD
-      if(role === "Admin"){
-        await axios.post('http://localhost:3000/api/admin/auth/register',config,data).then((res)=>{
-          console.log(res)
-        }).then(()=>{
-          navigate('/otp')
-        }).catch((err)=>{
-          console.log("Error message:-->>"+err)
-        })
-
-      }else if(role === "Faculty"){
-        await axios.post('http://localhost:3000/api/faculty/auth/register',facultydata).then((res)=>{
-          console.log(res)
-        }).then(()=>{
-          navigate('/otp')
-        }).catch((err)=>{
-          console.log("err"+err)
-        })
-      }
-
-=======
       await axiosInstance.post('/api/admin/auth/register',data).then((res)=>{
         document.cookie = res
       }).then(()=>{
@@ -73,7 +52,6 @@ const Login = () => {
       }).catch((err)=>{
         console.log("Error message:-->>"+err)
       })
->>>>>>> origin/main
 
     } else {
       setWrong("border animate-shake animate-twice animate-duration-1000");
