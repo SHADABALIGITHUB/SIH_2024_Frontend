@@ -1,8 +1,14 @@
 import axios from 'axios'
+<<<<<<< HEAD
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import axiosInstance from '../../lib/axiosInstance'
 import toast from 'react-hot-toast'
+=======
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Authcontext from '../../Context/Authcontext'
+>>>>>>> featured1
 
 const Otp = ({ length = 6 }) => {
 
@@ -10,7 +16,11 @@ const Otp = ({ length = 6 }) => {
     const inputRef = useRef([])
     const [finalotp, setFinalotp] = useState()
     const navigate = useNavigate()
+<<<<<<< HEAD
     const { user } = useParams();
+=======
+    const {role} = useContext(Authcontext)
+>>>>>>> featured1
 
     useEffect(() => {
         if (inputRef.current[0]) {
@@ -23,6 +33,7 @@ const Otp = ({ length = 6 }) => {
             otp: finalotp
         }
 
+<<<<<<< HEAD
         await axiosInstance.post(`/api/${user}/auth/verify-otp`, data).then((res) => {
             toast.success("User verified successfully");
             if(user == "faculty"){
@@ -37,6 +48,38 @@ const Otp = ({ length = 6 }) => {
             console.log(err)
         })
     }
+=======
+    const handleSubmit =async()=>{
+        //otp api check
+        const data = JSON.stringify({
+            otp:finalotp
+        })
+
+        if(role === "Admin"){
+            await axios.post('/api/admin/auth/verify-otp',config,data).then((res)=>{
+                if(res === "User registered successfully."){
+                    alert(res)
+                    navigate('/dashboard')
+                }else{
+                    alert(res)
+                }
+            }).catch((err)=>{
+                console.log(err)
+            })
+        }else if(role === 'Faculty'){
+            await axios.post('/api/faculty/auth/verify-otp',config,data).then((res)=>{
+                if(res === "User registered successfully."){
+                    alert(res)
+                    navigate('/dashboard')
+                }else{
+                    alert(res)
+                }
+            }).catch((err)=>{
+                console.log(err)
+            })
+        }
+    }        
+>>>>>>> featured1
 
     const handleChange = (index, e) => {
         const value = e.target.value

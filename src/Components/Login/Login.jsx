@@ -12,7 +12,6 @@ import axiosInstance from "../../lib/axiosInstance";
 import toast from "react-hot-toast";
 
 const Login = () => {
-
   const { isnotLogged, setLogged } = useContext(Authcontext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,6 +20,8 @@ const Login = () => {
   // const [role,setRole] = useState('')
   const [wrong, setWrong] = useState("border-none");
   const [instituteId, setInstitueId] = useState("");
+  const [department, setDepartment] = useState("");
+
 
   const navigate = useNavigate()
 
@@ -77,7 +78,7 @@ const Login = () => {
     } catch (error) {
       console.log(error);
     }
-
+  }
 
 
     // await axios.post('/api/admin/auth/login',config,data).then((res)=>{
@@ -88,6 +89,7 @@ const Login = () => {
     // }).catch((err)=>{
     //   console.log(err)
     // })
+
 
   };
 
@@ -230,13 +232,12 @@ const Login = () => {
               <TextInput
                 id="InstituteId"
                 value={instituteId}
+                type="text"
                 onChange={(e) => setInstitueId(e.target.value)}
                 placeholder="Institute Id"
                 required
               />
             </div>
-
-
 
             <div className="mb-2 block">
 
