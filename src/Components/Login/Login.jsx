@@ -8,6 +8,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
+import axiosInstance from "../../lib/axiosInstance";
 
 const Login = () => {
   
@@ -22,12 +23,6 @@ const Login = () => {
 
   const navigate = useNavigate()
 
-  const config ={
-    headers:{
-      "Content-Type":"application/json"
-    }
-  }
-
   const handleRegister = async() => {
     if (confirmPassword === password) {
         
@@ -39,7 +34,7 @@ const Login = () => {
       }
 
       // Register api call
-      await axios.post('/api/admin/auth/register',config,data).then((res)=>{
+      await axiosInstance.post('/api/admin/auth/register',data).then((res)=>{
         document.cookie = res
       }).then(()=>{
         navigate('/otp')
