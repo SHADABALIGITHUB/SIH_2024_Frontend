@@ -85,9 +85,9 @@ const Login = () => {
     }
 
     if(role === 'Admin'){
-      await axios.post('/api/admin/auth/login',config,data).then((res)=>{
+      await axios.post('http://0.0.0.0:3000/api/admin/auth/login',data).then((res)=>{
         console.log(res)
-        document.cookie = res
+        
       }).then(()=>{
         navigate('/dashboard')
       }).catch((err)=>{
@@ -95,10 +95,10 @@ const Login = () => {
       })
     }
     else if(role === "Faculty"){
-      await axios.post('/api/admin/faculty/login',config,data).then((res)=>{
-        document.cookie = res
+      await axios.post('http://0.0.0.0:3000/api/faculty/auth/login',data).then((res)=>{
+        console.log(res)
       }).then(()=>{
-        navigate('/dashboard')
+        navigate('/tech')
       }).catch((err)=>console.log(err))
     }
 
@@ -118,7 +118,7 @@ const Login = () => {
           }`}
         >
           <h1 className="text-3xl font-semibold font-Google1 text-mytext">
-            Admin Login{" "}
+            {role} Login{" "}
           </h1>
 
           <div className="flex flex-col gap-6">
