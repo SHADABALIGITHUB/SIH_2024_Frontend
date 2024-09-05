@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
+import Authcontext from '../../Context/Authcontext'
 
 const Otp = ({ length = 6 }) => {
 
@@ -22,17 +23,32 @@ const Otp = ({ length = 6 }) => {
             otp: finalotp
         })
 
-        await axios.post(`/api/${role}/auth/verify-otp`, data).then((res) => {
-            toast.success("User verified successfully");
-            if(user == "faculty"){
-                navigate('/faculty');
-            }
-            else {
-                navigate("/dashboard");
-            }
-        }).catch((err) => {
-            console.log(err)
-        })
+        if(role === "Admin"){
+            await axios.post(`/api/admin/auth/verify-otp`, data).then((res) => {
+                toast.success("User verified successfully");
+                if(user == "faculty"){
+                    navigate('/faculty');
+                }
+                else {
+                    navigate("/dashboard");
+                }
+            }).catch((err) => {
+                console.log(err)
+            })
+        }else if(role === "Faculty"){
+            await axios.post(`/api/faculty/auth/verify-otp`, data).then((res) => {
+                toast.success("User verified successfully");
+                if(user === "faculty"){
+                    navigate('/faculty');
+                }
+                else {
+                    navigate("/dashboard");
+                }
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
+
     }
 
     const handleChange = (index, e) => {

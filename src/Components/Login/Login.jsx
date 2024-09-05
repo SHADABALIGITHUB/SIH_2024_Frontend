@@ -42,8 +42,6 @@ const Login = () => {
         department:department
       })
 
-      alert(username+email+password+instituteId)
-
       // Register api call
       if(role === "Admin"){
         const data = JSON.stringify(admindata)
